@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+    <title>Remote logs</title>
+    <!--The Atlassian User Interface library, to style your add-on so it's consistent with HipChat-->
+    <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/5.9.5/css/aui.css" media="all">
+    <!--jQuery (optional)-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--The cross domain messaging library, you need to import that to be able to use the HipChat Javascript API-->
+    <script src="https://www.hipchat.com/atlassian-connect/all.js"></script>
+
+    <style>
+        body {
+            background: #383838;
+            color: #EFEFEF;
+        }
+    </style>
+</head>
+<body>
+
+<section id="content" role="main" class="ac-content">
+
+</section>
+
+<script type="text/javascript">
+
+    window.hipchat.bot.logs.last = 0;
+
+    $(document).ready(function () {
+
+
+        $("#populateChatInput").click(function () {
+            HipChat.chat.appendMessage('Hello world!');
+        });
+
+        $("#openDialog").click(function () {
+            HipChat.dialog.open({
+                key: "sample-dialog"
+            });
+        });
+
+        $("#sendCard").click(function () {
+            //This will request a JWT token from the HipChat client, signed with the installation shared secret,
+            //which you use to secure the REST call
+            HipChat.auth.withToken(function (err, token) {
+                //then, make a REST call to the add-on backend, including the JWT token
+                $.ajax({
+                    type: "POST",
+                    url: "/post-card",
+                    headers: {'authorization': 'JWT ' + token},
+                    data: {cardDescription: 'This card was posted from the Sidebar\nPretty cool hey!'},
+                    dataType: 'json',
+                    error: function (jqXHR, status) {
+                        alert('fail' + status.code);
+                    }
+                });
+            });
+        });
+
+        $("#updateGlance").click(function () {
+            HipChat.auth.withToken(function (err, token) {
+                $.ajax({
+                    type: "POST",
+                    url: "/update-glance",
+                    headers: {'authorization': 'JWT ' + token},
+                    data: {glanceText: 'Glance updated from Sidebar'},
+                    dataType: 'json',
+                    error: function (jqXHR, status) {
+                        alert('fail' + status.code);
+                    }
+                });
+            });
+        });
+
+        var updateData = function () {
+            HipChat.auth.withToken(function (err, token) {
+                $.ajax({
+                    type: "GET",
+                    url: "/remote-logs-content",
+                    headers: {'authorization': 'JWT ' + token},
+                    data: {
+                        foo: 'bar'
+                    },
+                    dataType: 'json',
+                    error: function (jqXHR, status) {
+                        //alert('fail' + status.code);
+                    },
+                    success: function (data) {
+
+                        // window.hipchat.bot.logs.last
+                        console.log(data);
+                    }
+                });
+            });
+        }
+
+        // Handle the message action "sample-message-action" declared in the descriptor
+        HipChat.register({
+            "sample-message-action": function (message) {
+                $("#msg").text(JSON.stringify(message));
+            }
+        });
+
+        window.setInterval(updateData, 3000);
+
+    });
+</script>
+
+</body>
+</html>

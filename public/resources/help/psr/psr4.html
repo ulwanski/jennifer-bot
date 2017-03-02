@@ -1,0 +1,35 @@
+<i>This PSR describes a specification for autoloading classes from file paths. It is fully interoperable,
+    and can be used in addition to any other autoloading specification, including PSR-0.
+    This PSR also describes where to place files that will be autoloaded according to the specification.</i>
+
+<ol>
+    <li>The term "class" refers to classes, interfaces, traits, and other similar structures.</li>
+    <li>A fully qualified class name has the following form: <pre><code class="language-" data-lang="">\&lt;NamespaceName&gt;(\&lt;SubNamespaceNames&gt;)*\&lt;ClassName&gt;</code></pre>
+        <ol>
+            <li>The fully qualified class name MUST have a top-level namespace name,
+                also known as a "vendor namespace".</li>
+            <li>The fully qualified class name MAY have one or more sub-namespace
+                names.</li>
+            <li>The fully qualified class name MUST have a terminating class name.</li>
+            <li>Underscores have no special meaning in any portion of the fully
+                qualified class name.</li>
+            <li>Alphabetic characters in the fully qualified class name MAY be any
+                combination of lower case and upper case.</li>
+            <li>All class names MUST be referenced in a case-sensitive fashion.</li>
+        </ol></li>
+    <li>When loading a file that corresponds to a fully qualified class name ...<br>
+        <ol>
+            <li>A contiguous series of one or more leading namespace and sub-namespace
+                names, not including the leading namespace separator, in the fully
+                qualified class name (a "namespace prefix") corresponds to at least one
+                "base directory".</li>
+            <li>The contiguous sub-namespace names after the "namespace prefix"
+                correspond to a subdirectory within a "base directory", in which the
+                namespace separators represent directory separators. The subdirectory
+                name MUST match the case of the sub-namespace names.</li>
+            <li>The terminating class name corresponds to a file name ending in <code>.php</code>.
+                The file name MUST match the case of the terminating class name.</li>
+        </ol></li>
+    <br><li>Autoloader implementations MUST NOT throw exceptions, MUST NOT raise errors
+        of any level, and SHOULD NOT return a value.</li>
+</ol>
