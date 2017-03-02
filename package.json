@@ -1,0 +1,22 @@
+{
+  "name": "jennifer-hipchat-addon",
+  "version": "0.0.1",
+  "author": "Marek Ulwanski",
+  "description": "Jennifer HipChat Bot",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.9.3",
+    "bunyan": "^1.2.3",
+    "express": "^4.10.2",
+    "jwt-simple": "^0.4.0",
+    "lodash": "^2.4.1",
+    "request": "^2.49.0",
+    "moment": "^2.13.0",
+    "mysql": "^2.10.2",
+    "redis": "^2.6.1",
+    "colors": "^1.1.2",
+    "fifo": "^2.3.0",
+    "g-image-search": "^1.0.2",
+    "weather-js": "^1.0.2"
+  }
+}

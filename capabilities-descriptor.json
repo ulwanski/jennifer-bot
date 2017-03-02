@@ -1,0 +1,116 @@
+{
+    "name": "Jennifer",
+    "description": "Jennifer Chat-Bot for Divante",
+    "key": "jennifer-divante-addon",
+    "links": {
+        "homepage": "${host}",
+        "self": "${host}/descriptor"
+    },
+    "vendor": {
+        "name": "Divante Sp. z o.o.",
+        "url": "http://divante.pl/"
+    },
+	"capabilities": {
+		"hipchatApiConsumer": {
+			"fromName": "Jennifer",
+			"avatar": {
+				"url": "${host}/resources/img/avatar.png",
+				"url@2x": "${host}/resources/img/avatar@2x.png"
+			},
+			"scopes": [
+				"send_notification"
+			]
+		},
+		"installable": {
+			"allowGlobal": true,
+			"allowRoom": true,
+			"callbackUrl": "${host}/installed",
+			"uninstalledUrl": "${host}/uninstalled"
+		},
+		"webhook": [
+			{
+				"url": "${host}/cmd",
+				"event": "room_message",
+				"pattern": "/jen .*",
+				"name": "Command",
+				"authentication": "jwt"
+			}
+
+		],
+		"configurable": {
+			"url": "${host}/configure"
+		},
+		"glance": [
+			{
+				"icon": {
+					"url": "${host}/resources/img/icon.png",
+					"url@2x": "${host}/resources/img/icon.png"
+				},
+				"key": "sample-glance",
+				"name": {
+					"value": "Sample Glance"
+				},
+				"queryUrl": "${host}/glance-data",
+				"target": "sample-sidebar"
+			},
+            {
+              "icon": {
+                "url": "${host}/resources/img/log.png",
+                "url@2x": "${host}/resources/img/log@2x.png"
+              },
+              "key": "remote-logs",
+              "name": {
+                "value": "Remote logs"
+              },
+              "queryUrl": "${host}/remote-logs",
+              "target": "remote-logs-sidebar"
+            }
+		],
+		"webPanel" : [
+			{
+				"icon": {
+					"url": "${host}/resources/img/icon.png",
+					"url@2x": "${host}/resources/img/icon.png"
+				},
+				"key": "sample-sidebar",
+				"name": {
+					"value": "Sample sidebar"
+				},
+				"url": "${host}/sidebar",
+				"location": "hipchat.sidebar.right"
+			},
+            {
+              "icon": {
+                "url": "${host}/resources/img/log.png",
+                "url@2x": "${host}/resources/img/log@2x.png"
+              },
+              "key": "remote-logs-sidebar",
+              "name": {
+                "value": "Remote logs sidebar"
+              },
+              "url": "${host}/remote-logs-sidebar",
+              "location": "hipchat.sidebar.right"
+            }
+		],
+		"dialog": [
+			{
+				"title": {
+					"value": "My Dialog"
+				},
+				"key": "sample-dialog",
+				"options": {},
+				"url": "${host}/dialog"
+			}
+		],
+		"action": [
+			{
+				"key": "sample-message-action",
+				"name": {
+					"value": "Sample action"
+				},
+				"target": "sample-sidebar",
+				"location": "hipchat.message.action"
+			}
+		]
+	}
+}
