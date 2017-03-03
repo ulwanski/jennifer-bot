@@ -13,8 +13,8 @@
 var _           = require('lodash');
 var fs          = require('fs');
 var ssl = {
-    key: fs.readFileSync('./ssl/default.key'),
-    cert: fs.readFileSync('./ssl/default.crt'),
+    key: fs.readFileSync('/etc/letsencrypt/live/ulwanski.pl/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/ulwanski.pl/fullchain.pem'),
     requestCert: true,
     rejectUnauthorized: false
 };
