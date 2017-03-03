@@ -133,7 +133,7 @@ app.post('/installed', function (req, res) {
                     logs.error(error.message);
                 } else {
                     logs.success("Bot installed ...");
-                    sendCustomMessage(oauthId, installation['roomId'], 'Cześć, mam na imię <i>Jennifer</i> jestem botem Divante, będe Wam od dzisiaj umilać czas w tym pokoju :) Gdyby ktoś mnie potrzebował niech wpiszę "<i>/jen help</i>" ;)', "green", "html");
+                    sendCustomMessage(oauthId, installation['roomId'], 'Cześć, mam na imię <i>Jennifer</i>, będe Wam od dzisiaj umilać czas w tym pokoju :) Gdyby ktoś mnie potrzebował niech wpiszę "<i>/jen help</i>" ;)', "green", "html");
                 }
             });
 
